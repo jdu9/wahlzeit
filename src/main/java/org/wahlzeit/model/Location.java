@@ -5,7 +5,7 @@ public class Location {
 	public Coordinate coordinate;
 
 	public Location(Coordinate coordinate) {
-		this.coordinate = coordinate;
+		this.setCoordinate(coordinate);
 	}
 
 	public Coordinate getCoordinate() {
@@ -13,6 +13,9 @@ public class Location {
 	}
 
 	public void setCoordinate(Coordinate coordinate) {
+		if (coordinate == null) {
+			throw new IllegalArgumentException("Argument for coordinate shouldn't be null.");
+		}
 		this.coordinate = coordinate;
 	}
 
