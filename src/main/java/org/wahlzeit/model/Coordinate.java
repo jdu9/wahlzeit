@@ -7,6 +7,14 @@ public class Coordinate {
 
 	private final double x, y, z;
 
+	protected boolean isEqual(Coordinate coordinate) {
+		boolean coordinateNotNull = coordinate != null;
+		boolean xCompare = this.getX() == coordinate.getX();
+		boolean yCompare = this.getY() == coordinate.getY();
+		boolean zCompare = this.getZ() == coordinate.getZ();
+		return coordinateNotNull && xCompare && yCompare && zCompare;
+	}
+
 	public Coordinate() {
 		this.x = 0.0;
 		this.y = 0.0;
@@ -27,12 +35,6 @@ public class Coordinate {
 		double qp2 = Math.pow(this.getY() - coordinate.getY(), 2.0);
 		double qp3 = Math.pow(this.getZ() - coordinate.getZ(), 2.0);
 		return Math.sqrt(qp1 + qp2 + qp3);
-	}
-
-	public boolean isEqual(Coordinate coordinate) {
-		return this.getX() == coordinate.getX() &&
-			this.getY() == coordinate.getY() &&
-			this.getZ() == coordinate.getZ();
 	}
 
 	public double getX() {
