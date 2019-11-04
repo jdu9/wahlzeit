@@ -66,5 +66,22 @@ public class EmailAddressTest extends TestCase {
 		assertFalse(EmailAddress.EMPTY.isValid());
 	}
 
+	/**
+	 *
+	 */
+	public void testEmailAddressIsEqual() {
+		String webFefeString = "web@fefe.de";
+		String bloginputFefeString = "felix-bloginput@fefe.de";
+
+		EmailAddress addr1 = EmailAddress.getFromString(webFefeString);
+		EmailAddress addr2 = EmailAddress.getFromString(bloginputFefeString);
+		EmailAddress addr3 = EmailAddress.getFromString(bloginputFefeString);
+
+		assertTrue(addr1.isEqual(addr1));
+		assertTrue(addr2.isEqual(addr2));
+		assertTrue(addr2.isEqual(addr3));
+		assertFalse(addr1.isEqual(addr2));
+	}
+
 }
 
