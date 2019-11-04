@@ -27,6 +27,9 @@ import junit.framework.TestCase;
  */
 public class EmailAddressTest extends TestCase {
 
+	String webFefeString = "web@fefe.de";
+	String bloginputFefeString = "felix-bloginput@fefe.de";
+
 	/**
 	 *
 	 */
@@ -69,17 +72,21 @@ public class EmailAddressTest extends TestCase {
 	/**
 	 *
 	 */
-	public void testEmailAddressIsEqual() {
-		String webFefeString = "web@fefe.de";
-		String bloginputFefeString = "felix-bloginput@fefe.de";
-
+	public void testEmailAddressIsEqualTrue() {
 		EmailAddress addr1 = EmailAddress.getFromString(webFefeString);
 		EmailAddress addr2 = EmailAddress.getFromString(bloginputFefeString);
 		EmailAddress addr3 = EmailAddress.getFromString(bloginputFefeString);
-
 		assertTrue(addr1.isEqual(addr1));
 		assertTrue(addr2.isEqual(addr2));
 		assertTrue(addr2.isEqual(addr3));
+	}
+
+	/**
+	 *
+	 */
+	public void testEmailAddressIsEqualFalse() {
+		EmailAddress addr1 = EmailAddress.getFromString(webFefeString);
+		EmailAddress addr2 = EmailAddress.getFromString(bloginputFefeString);
 		assertFalse(addr1.isEqual(addr2));
 	}
 
