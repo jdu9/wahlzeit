@@ -69,7 +69,7 @@ public class MushroomPhoto extends Photo {
 	 *
 	 */
 	public void setHallucinogen(boolean hallucinogen) {
-		this.edible = edible;
+		this.hallucinogen = hallucinogen;
 	}
 
 	/**
