@@ -7,11 +7,13 @@ public class Coordinate {
 
 	private final double x, y, z;
 
+	static double Epsilon = 1E-6;
+
 	protected boolean isEqual(Coordinate coordinate) {
 		boolean coordinateNotNull = coordinate != null;
-		boolean xCompare = this.getX() == coordinate.getX();
-		boolean yCompare = this.getY() == coordinate.getY();
-		boolean zCompare = this.getZ() == coordinate.getZ();
+		boolean xCompare = Math.abs(this.getX() - coordinate.getX()) < Coordinate.Epsilon;
+		boolean yCompare = Math.abs(this.getY() - coordinate.getY()) < Coordinate.Epsilon;
+		boolean zCompare = Math.abs(this.getZ() - coordinate.getZ()) < Coordinate.Epsilon;
 		return coordinateNotNull && xCompare && yCompare && zCompare;
 	}
 
