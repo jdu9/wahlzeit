@@ -26,7 +26,9 @@ import org.wahlzeit.model.GlobalsManager;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoCaseManager;
 import org.wahlzeit.model.PhotoFactory;
+import org.wahlzeit.model.MushroomPhotoFactory;
 import org.wahlzeit.model.PhotoManager;
+import org.wahlzeit.model.MushroomPhotoManager;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.model.persistence.DatastoreAdapter;
@@ -67,8 +69,14 @@ public abstract class ModelMain extends AbstractMain {
 		log.config(LogBuilder.createSystemMessage().addAction("init PhotoFactory").toString());
 		PhotoFactory.initialize();
 
+		log.config(LogBuilder.createSystemMessage().addAction("init MushroomPhotoFactory").toString());
+		MushroomPhotoFactory.initialize();
+
 		log.config(LogBuilder.createSystemMessage().addAction("load Photos").toString());
 		PhotoManager.getInstance().init();
+
+		log.config(LogBuilder.createSystemMessage().addAction("load MushroomPhotos").toString());
+		MushroomPhotoManager.getInstance().init();
 	}
 
 
