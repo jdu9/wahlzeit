@@ -3,7 +3,7 @@ package org.wahlzeit.model;
 /**
  * A spheric coordinate represents a 3-dimensional point in space, inherits from Coordinate
  */
-public class SphericCoordinate implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate {
 
 	private final double phi, theta, radius;
 
@@ -28,13 +28,6 @@ public class SphericCoordinate implements Coordinate {
 	}
 
 	@Override
-	public double getCartesianDistance(Coordinate coordinate) {
-		CartesianCoordinate coord1 = this.asCartesianCoordinate();
-		CartesianCoordinate coord2 = coordinate.asCartesianCoordinate();
-		return coord1.getDistance(coord2);
-	}
-
-	@Override
 	public SphericCoordinate asSphericCoordinate() {
 		return this;
 	}
@@ -42,29 +35,6 @@ public class SphericCoordinate implements Coordinate {
 	@Override
 	public boolean isEqual(Coordinate coordinate) {
 		return this.asCartesianCoordinate().isEqual(coordinate);
-	}
-
-	@Override
-	public double getCentralAngle(Coordinate coordinate) {
-		SphericCoordinate c = coordinate.asSphericCoordinate();
-		double dphi = Math.pow(Math.sin((c.getPhi() - this.getPhi())/2.0), 2);
-		double dtheta = Math.pow(Math.sin((c.getTheta() - this.getTheta())/2.0), 2);
-		return 2.0 * Math.asin(dphi + Math.cos(this.getPhi()) * Math.cos(c.getPhi() * dtheta));
-	}
-
-	@Override
-	public boolean equals(Object o) { 
-		if (o == this) {
-			return true; 
-		} 
-
-		if (!(o instanceof SphericCoordinate)) { 
-			return false; 
-		} 
-
-		Coordinate coord = (SphericCoordinate) o; 
-
-		return this.isEqual(coord);
 	}
 
 	public double getRadius() {
@@ -77,6 +47,12 @@ public class SphericCoordinate implements Coordinate {
 
 	public double getTheta() {
 		return this.theta;
+	}
+
+	public double getAngle(SphericCoordinate coordinate) {
+		double dphi = Math.pow(Math.sin((this.getPhi() - coordinate.getPhi())/2.0), 2);
+		double dtheta = Math.pow(Math.sin((this.getTheta() - coordinate.getTheta())/2.0), 2);
+		return 2.0 * Math.asin(dphi + Math.cos(coordinate.getPhi()) * Math.cos(this.getPhi() * dtheta));
 	}
 
 }

@@ -3,7 +3,7 @@ package org.wahlzeit.model;
 /**
  * A cartesian coordinate represents a 3-dimensional point in space, inherits from Coordinate
  */
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 
 	private final double x, y, z;
 
@@ -27,11 +27,6 @@ public class CartesianCoordinate implements Coordinate {
 	}
 
 	@Override
-	public double getCartesianDistance(Coordinate coordinate) {
-		return this.getDistance(coordinate.asCartesianCoordinate());
-	}
-
-	@Override
 	public SphericCoordinate asSphericCoordinate() {
 		CartesianCoordinate origin = new CartesianCoordinate(0.0, 0.0, 0.0);
 		double radius = origin.getDistance(this);
@@ -49,25 +44,6 @@ public class CartesianCoordinate implements Coordinate {
 		boolean zCompare = Math.abs(this.getZ() - coord.getZ()) < CartesianCoordinate.Epsilon;
 		return coordinateNotNull && xCompare && yCompare && zCompare;
 	}
-
-	@Override
-	public double getCentralAngle(Coordinate coordinate) {
-		return this.asSphericCoordinate().getCentralAngle(coordinate);
-	}
-
-	public boolean equals(Object o) { 
-		if (o == this) {
-			return true; 
-		} 
-
-		if (!(o instanceof CartesianCoordinate)) { 
-			return false; 
-		} 
-
-		Coordinate coord = (CartesianCoordinate) o; 
-
-		return this.isEqual(coord);
-	} 
 
 	public double getDistance(CartesianCoordinate coordinate) {
 		if (this.equals(coordinate)) {
