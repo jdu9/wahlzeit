@@ -79,7 +79,7 @@ public class CoordinateTest {
 	@Test
 	public void testCartesianSpheric1() {
 		CartesianCoordinate coordinate1 = new CartesianCoordinate();
-		SphericCoordinate coordinate2 = new SphericCoordinate(); 
+		SphericCoordinate coordinate2 = new SphericCoordinate();
 		assertTrue(coordinate2.isEqual(coordinate2));
 		assertTrue(coordinate1.isEqual(coordinate2));
 	}
@@ -90,7 +90,7 @@ public class CoordinateTest {
 	@Test
 	public void testCartesianSpheric2() {
 		CartesianCoordinate coordinate1 = new CartesianCoordinate(-1.36005, 4.59768, 1.41831);
-		SphericCoordinate coordinate2 = new SphericCoordinate(5.0, 5.0, 5.0); 
+		SphericCoordinate coordinate2 = new SphericCoordinate(5.0, 5.0, 5.0);
 		assertTrue(coordinate2.isEqual(coordinate2));
 	}
 

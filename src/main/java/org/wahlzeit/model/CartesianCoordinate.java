@@ -13,12 +13,14 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.x = 0.0;
 		this.y = 0.0;
 		this.z = 0.0;
+		this.assertClassInvariants();
 	}
 
 	public CartesianCoordinate(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.assertClassInvariants();
 	}
 
 	@Override
@@ -28,31 +30,50 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
+		this.assertClassInvariants();
+
 		CartesianCoordinate origin = new CartesianCoordinate(0.0, 0.0, 0.0);
 		double radius = origin.getDistance(this);
 		double theta = Math.acos(this.getZ() / radius);
 		double phi = Math.asin(this.getY() / Math.sqrt( Math.pow(this.getX(), 2.0) + Math.pow(this.getY(), 2.0) ) );
+
+		this.assertClassInvariants();
 		return new SphericCoordinate(phi, theta, radius);
 	}
 
 	@Override
 	public boolean isEqual(Coordinate coordinate) {
+		this.assertClassInvariants();
+
 		CartesianCoordinate coord = coordinate.asCartesianCoordinate();
 		boolean coordinateNotNull = coord != null;
 		boolean xCompare = Math.abs(this.getX() - coord.getX()) < CartesianCoordinate.Epsilon;
 		boolean yCompare = Math.abs(this.getY() - coord.getY()) < CartesianCoordinate.Epsilon;
 		boolean zCompare = Math.abs(this.getZ() - coord.getZ()) < CartesianCoordinate.Epsilon;
-		return coordinateNotNull && xCompare && yCompare && zCompare;
+		boolean result = coordinateNotNull && xCompare && yCompare && zCompare;
+
+		this.assertClassInvariants();
+		return result;
 	}
 
 	public double getDistance(CartesianCoordinate coordinate) {
+		this.assertClassInvariants();
+		this.assertCoordinateNotNull(coordinate);
+
 		if (this.equals(coordinate)) {
 			return 0.0;
 		}
 		double qp1 = Math.pow(this.getX() - coordinate.getX(), 2.0);
 		double qp2 = Math.pow(this.getY() - coordinate.getY(), 2.0);
 		double qp3 = Math.pow(this.getZ() - coordinate.getZ(), 2.0);
-		return Math.sqrt(qp1 + qp2 + qp3);
+		double result = Math.sqrt(qp1 + qp2 + qp3);
+
+		this.assertDoubleNotNegative(qp1);
+		this.assertDoubleNotNegative(qp2);
+		this.assertDoubleNotNegative(qp3);
+		this.assertDoubleNotNegative(result);
+		this.assertClassInvariants();
+		return result;
 	}
 
 	public double getX() {
@@ -65,6 +86,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	public double getZ() {
 		return this.z;
+	}
+
+	@Override
+	public void assertClassInvariants() {
+		this.assertDoubleNotNull(this.x);
+		this.assertDoubleNotNull(this.y);
+		this.assertDoubleNotNull(this.z);
 	}
 
 }
