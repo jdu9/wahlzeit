@@ -60,7 +60,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	public double getAngle(SphericCoordinate coordinate) {
 		this.assertClassInvariants();
-		this.assertCoordinateNotNull(coordinate);
+		this.assertObjectNotNull(coordinate);
 
 		double dphi = Math.pow(Math.sin((this.getPhi() - coordinate.getPhi())/2.0), 2);
 		double dtheta = Math.pow(Math.sin((this.getTheta() - coordinate.getTheta())/2.0), 2);

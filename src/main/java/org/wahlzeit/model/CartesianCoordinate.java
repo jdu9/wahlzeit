@@ -58,7 +58,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	public double getDistance(CartesianCoordinate coordinate) {
 		this.assertClassInvariants();
-		this.assertCoordinateNotNull(coordinate);
+		this.assertObjectNotNull(coordinate);
 
 		if (this.equals(coordinate)) {
 			return 0.0;
@@ -90,9 +90,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	@Override
 	public void assertClassInvariants() {
-		this.assertDoubleNotNull(this.x);
-		this.assertDoubleNotNull(this.y);
-		this.assertDoubleNotNull(this.z);
+		this.assertObjectNotNull(this.x);
+		this.assertObjectNotNull(this.y);
+		this.assertObjectNotNull(this.z);
 	}
 
 }

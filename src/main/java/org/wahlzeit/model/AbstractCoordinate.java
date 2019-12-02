@@ -6,14 +6,14 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	public double getCartesianDistance(Coordinate coordinate) {
 		this.assertClassInvariants();
-		this.assertCoordinateNotNull(coordinate);
+		this.assertObjectNotNull(coordinate);
 
 		CartesianCoordinate coord1 = this.asCartesianCoordinate();
 		CartesianCoordinate coord2 = coordinate.asCartesianCoordinate();
 		double result = coord1.getDistance(coord2);
 
-		this.assertCoordinateNotNull(coord1);
-		this.assertCoordinateNotNull(coord2);
+		this.assertObjectNotNull(coord1);
+		this.assertObjectNotNull(coord2);
 		this.assertClassInvariants();
 		return result;
 	}
@@ -22,14 +22,14 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	public double getCentralAngle(Coordinate coordinate) {
 		this.assertClassInvariants();
-		this.assertCoordinateNotNull(coordinate);
+		this.assertObjectNotNull(coordinate);
 
 		SphericCoordinate coord1 = coordinate.asSphericCoordinate();
 		SphericCoordinate coord2 = this.asSphericCoordinate();
 		double result = coord1.getAngle(coord2);
 
-		this.assertCoordinateNotNull(coord1);
-		this.assertCoordinateNotNull(coord2);
+		this.assertObjectNotNull(coord1);
+		this.assertObjectNotNull(coord2);
 		this.assertClassInvariants();
 		return result;
 	}
@@ -38,13 +38,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	protected abstract void assertClassInvariants();
 
-	protected void assertCoordinateNotNull(Coordinate coordinate) {
-		if (coordinate == null) {
-			throw new IllegalArgumentException("Coordinate must not be null!");
-		}
-	}
-
-	protected void assertDoubleNotNull(Object value) {
+	protected void assertObjectNotNull(Object value) {
 		if (value == null) {
 			throw new IllegalArgumentException("Value must not be null!");
 		}
