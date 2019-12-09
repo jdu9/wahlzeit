@@ -22,7 +22,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public CartesianCoordinate asCartesianCoordinate() {
+	public CartesianCoordinate asCartesianCoordinate() throws NullPointerException {
 		this.assertClassInvariants();
 
 		double x = this.getRadius() * Math.sin(theta) * Math.cos(phi);

@@ -29,7 +29,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public SphericCoordinate asSphericCoordinate() {
+	public SphericCoordinate asSphericCoordinate() throws NullPointerException {
 		this.assertClassInvariants();
 
 		CartesianCoordinate origin = new CartesianCoordinate(0.0, 0.0, 0.0);
@@ -42,7 +42,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public boolean isEqual(Coordinate coordinate) {
+	public boolean isEqual(Coordinate coordinate) throws NullPointerException {
 		this.assertClassInvariants();
 
 		CartesianCoordinate coord = coordinate.asCartesianCoordinate();

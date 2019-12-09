@@ -4,7 +4,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	public abstract CartesianCoordinate asCartesianCoordinate();
 
-	public double getCartesianDistance(Coordinate coordinate) {
+	public double getCartesianDistance(Coordinate coordinate) throws NullPointerException {
 		this.assertClassInvariants();
 		this.assertObjectNotNull(coordinate);
 
@@ -21,7 +21,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	public abstract SphericCoordinate asSphericCoordinate();
 
-	public double getCentralAngle(Coordinate coordinate) {
+	public double getCentralAngle(Coordinate coordinate) throws NullPointerException {
 		this.assertClassInvariants();
 		this.assertObjectNotNull(coordinate);
 
