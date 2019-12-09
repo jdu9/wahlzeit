@@ -62,15 +62,15 @@ public class MushroomPhotoFactory extends PhotoFactory {
 	/**
 	 * @methodtype factory
 	 */
-	public MushroomPhoto createMushroomPhoto(PhotoId myId) {
+	public MushroomPhoto createMushroomPhoto(PhotoId myId) throws NullPointerException {
 		return new MushroomPhoto(myId);
 	}
 
 
 	/**
-	 * @methodtype factory 
+	 * @methodtype factory
 	 */
-	public MushroomPhoto createMushroomPhoto(boolean edible, boolean hallucinogen, int radius) {
+	public MushroomPhoto createMushroomPhoto(boolean edible, boolean hallucinogen, int radius) throws NullPointerException {
 		return new MushroomPhoto(edible, hallucinogen, radius);
 	}
 

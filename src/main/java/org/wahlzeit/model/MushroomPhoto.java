@@ -61,21 +61,21 @@ public class MushroomPhoto extends Photo {
 	/**
 	 *
 	 */
-	public void setEdible(boolean edible) {
+	public void setEdible(boolean edible) throws NullPointerException {
 		this.edible = edible;
 	}
 
 	/**
 	 *
 	 */
-	public void setHallucinogen(boolean hallucinogen) {
+	public void setHallucinogen(boolean hallucinogen) throws NullPointerException {
 		this.hallucinogen = hallucinogen;
 	}
 
 	/**
 	 *
 	 */
-	public void setRadius(int radius) {
+	public void setRadius(int radius) throws NullPointerException {
 		this.radius = radius;
 	}
 

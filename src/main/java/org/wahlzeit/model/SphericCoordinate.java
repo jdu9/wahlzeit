@@ -41,7 +41,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public boolean isEqual(Coordinate coordinate) {
+	public boolean isEqual(Coordinate coordinate) throws NullPointerException {
 		this.assertClassInvariants();
 		return this.asCartesianCoordinate().isEqual(coordinate);
 	}
@@ -58,7 +58,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return this.theta;
 	}
 
-	public double getAngle(SphericCoordinate coordinate) {
+	public double getAngle(SphericCoordinate coordinate) throws NullPointerException {
 		this.assertClassInvariants();
 		this.assertObjectNotNull(coordinate);
 
@@ -66,23 +66,32 @@ public class SphericCoordinate extends AbstractCoordinate {
 		double dtheta = Math.pow(Math.sin((this.getTheta() - coordinate.getTheta())/2.0), 2);
 		double result = 2.0 * Math.asin(dphi + Math.cos(coordinate.getPhi()) * Math.cos(this.getPhi() * dtheta));
 
-		this.assertRadian(dphi);
-		this.assertRadian(dtheta);
-		this.assertRadian(result);
+		this.assertPhi(dphi);
+		this.assertTheta(dtheta);
 		this.assertClassInvariants();
 		return result;
 	}
 
 	@Override
 	public void assertClassInvariants() {
-		this.assertRadian(this.phi);
-		this.assertRadian(this.theta);
-		this.assertDoubleNotNegative(this.radius);
+		try {
+			this.assertPhi(this.phi);
+			this.assertTheta(this.theta);
+			this.assertDoubleNotNegative(this.radius);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Failed class invariant!");
+		}
 	}
 
-	private void assertRadian(double angle) {
-		if (angle < 0 && angle >= 2 * Math.PI) {
-			throw new IllegalArgumentException("Radian value is invalid!");
+	private void assertPhi(double angle) throws IllegalArgumentException {
+		if (angle < 0.0 && angle > 2.0 * Math.PI) {
+			throw new IllegalArgumentException("Phi has a wrong value!");
+		}
+	}
+
+	private void assertTheta(double angle) throws IllegalArgumentException {
+		if (angle < 0.0 && angle > Math.PI) {
+			throw new IllegalArgumentException("Theta has a wrong value!");
 		}
 	}
 

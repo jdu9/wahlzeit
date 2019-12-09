@@ -56,7 +56,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return result;
 	}
 
-	public double getDistance(CartesianCoordinate coordinate) {
+	public double getDistance(CartesianCoordinate coordinate) throws NullPointerException {
 		this.assertClassInvariants();
 		this.assertObjectNotNull(coordinate);
 
@@ -90,9 +90,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	@Override
 	public void assertClassInvariants() {
-		this.assertObjectNotNull(this.x);
-		this.assertObjectNotNull(this.y);
-		this.assertObjectNotNull(this.z);
+		try {
+			this.assertObjectNotNull(this.x);
+			this.assertObjectNotNull(this.y);
+			this.assertObjectNotNull(this.z);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Failed class invariant!");
+		}
 	}
 
 }

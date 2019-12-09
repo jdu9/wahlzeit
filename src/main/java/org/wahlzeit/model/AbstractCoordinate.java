@@ -14,6 +14,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 		this.assertObjectNotNull(coord1);
 		this.assertObjectNotNull(coord2);
+
 		this.assertClassInvariants();
 		return result;
 	}
@@ -38,13 +39,13 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	protected abstract void assertClassInvariants();
 
-	protected void assertObjectNotNull(Object value) {
+	protected void assertObjectNotNull(Object value) throws IllegalArgumentException {
 		if (value == null) {
 			throw new IllegalArgumentException("Value must not be null!");
 		}
 	}
 
-	protected void assertDoubleNotNegative(double value) {
+	protected void assertDoubleNotNegative(double value) throws IllegalArgumentException {
 		if (value < 0) {
 			throw new IllegalArgumentException("Value must be positive!");
 		}
