@@ -102,7 +102,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	protected static HashMap<String, CartesianCoordinate> coordinates = new HashMap<String, CartesianCoordinate>();
 
-	public static CartesianCoordinate get(double x, double y, double z) {
+	public synchronized static CartesianCoordinate get(double x, double y, double z) {
 		String key = Integer.toString(SphericCoordinate.genHashCode(x, y, z));
 		CartesianCoordinate coordinate = coordinates.get(key);
 

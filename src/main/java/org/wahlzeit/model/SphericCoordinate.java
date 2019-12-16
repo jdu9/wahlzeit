@@ -97,7 +97,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	protected static HashMap<String, SphericCoordinate> coordinates = new HashMap<String, SphericCoordinate>();
 
-	public static SphericCoordinate get(double phi, double theta, double radius) {
+	public synchronized static SphericCoordinate get(double phi, double theta, double radius) {
 		String key = Integer.toString(SphericCoordinate.genHashCode(phi, theta, radius));
 		SphericCoordinate coordinate = coordinates.get(key);
 
