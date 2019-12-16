@@ -103,11 +103,11 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 		if (coordinate != null) {
 			return coordinate;
-		} else {
-			SphericCoordinate newCoordinate = new SphericCoordinate(phi, theta, radius);
-			coordinates.put(Integer.toString(newCoordinate.hashCode()), newCoordinate);
-			return newCoordinate;
 		}
+
+		SphericCoordinate newCoordinate = new SphericCoordinate(phi, theta, radius);
+		coordinates.put(Integer.toString(newCoordinate.hashCode()), newCoordinate);
+		return newCoordinate;
 	}
 
 	public static int genHashCode(double phi, double theta, double radius) {

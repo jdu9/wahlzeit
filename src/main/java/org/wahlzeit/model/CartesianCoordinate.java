@@ -108,11 +108,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 		if (coordinate != null) {
 			return coordinate;
-		} else {
-			CartesianCoordinate newCoordinate = new CartesianCoordinate(x, y, z);
-			coordinates.put(Integer.toString(newCoordinate.hashCode()), newCoordinate);
-			return newCoordinate;
 		}
+
+		CartesianCoordinate newCoordinate = new CartesianCoordinate(x, y, z);
+		coordinates.put(Integer.toString(newCoordinate.hashCode()), newCoordinate);
+		return newCoordinate;
 	}
 
 	public static int genHashCode(double x, double y, double z) {
