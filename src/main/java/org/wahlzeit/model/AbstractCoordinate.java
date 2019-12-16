@@ -39,13 +39,13 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	protected abstract void assertClassInvariants();
 
-	protected static void assertObjectNotNull(Object value) throws IllegalArgumentException {
+	protected void assertObjectNotNull(Object value) throws IllegalArgumentException {
 		if (value == null) {
 			throw new IllegalArgumentException("Value must not be null!");
 		}
 	}
 
-	protected static void assertDoubleNotNegative(double value) throws IllegalArgumentException {
+	protected void assertDoubleNotNegative(double value) throws IllegalArgumentException {
 		if (value < 0) {
 			throw new IllegalArgumentException("Value must be positive!");
 		}
