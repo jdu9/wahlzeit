@@ -1,5 +1,8 @@
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+import java.util.Objects;
+
 /**
  * A spheric coordinate represents a 3-dimensional point in space, inherits from Coordinate
  */
@@ -7,18 +10,34 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	private final double phi, theta, radius;
 
-	public SphericCoordinate() {
-		this.phi = 0.0;
-		this.theta = 0.0;
-		this.radius = 0.0;
-		this.assertClassInvariants();
-	}
-
-	public SphericCoordinate(double phi, double theta, double radius) {
+	private SphericCoordinate(double phi, double theta, double radius) {
 		this.phi = phi;
 		this.theta = theta;
 		this.radius = radius;
 		this.assertClassInvariants();
+	}
+
+	private void assertPhi(double angle) throws IllegalArgumentException {
+		if (angle < 0.0 && angle > 2.0 * Math.PI) {
+			throw new IllegalArgumentException("Phi has a wrong value!");
+		}
+	}
+
+	private void assertTheta(double angle) throws IllegalArgumentException {
+		if (angle < 0.0 && angle > Math.PI) {
+			throw new IllegalArgumentException("Theta has a wrong value!");
+		}
+	}
+
+	@Override
+	protected void assertClassInvariants() {
+		try {
+			this.assertPhi(this.phi);
+			this.assertTheta(this.theta);
+			this.assertDoubleNotNegative(this.radius);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Failed class invariant!");
+		}
 	}
 
 	@Override
@@ -28,10 +47,9 @@ public class SphericCoordinate extends AbstractCoordinate {
 		double x = this.getRadius() * Math.sin(theta) * Math.cos(phi);
 		double y = this.getRadius() * Math.sin(theta) * Math.sin(phi);
 		double z = this.getRadius() * Math.cos(theta);
-		CartesianCoordinate result = new CartesianCoordinate(x, y, z);
 
 		this.assertClassInvariants();
-		return result;
+		return CartesianCoordinate.get(x, y, z);
 	}
 
 	@Override
@@ -73,26 +91,35 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public void assertClassInvariants() {
-		try {
-			this.assertPhi(this.phi);
-			this.assertTheta(this.theta);
-			this.assertDoubleNotNegative(this.radius);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Failed class invariant!");
+	public int hashCode() {
+		return SphericCoordinate.genHashCode(this.phi, this.theta, this.radius);
+	}
+
+	protected static HashMap<String, SphericCoordinate> coordinates = new HashMap<String, SphericCoordinate>();
+
+	public static SphericCoordinate get(double phi, double theta, double radius) {
+		String key = Integer.toString(SphericCoordinate.genHashCode(phi, theta, radius));
+		SphericCoordinate coordinate = coordinates.get(key);
+
+		if (coordinate != null) {
+			return coordinate;
+		} else {
+			SphericCoordinate newCoordinate = new SphericCoordinate(phi, theta, radius);
+			coordinates.put(Integer.toString(newCoordinate.hashCode()), newCoordinate);
+			return newCoordinate;
 		}
 	}
 
-	private void assertPhi(double angle) throws IllegalArgumentException {
-		if (angle < 0.0 && angle > 2.0 * Math.PI) {
-			throw new IllegalArgumentException("Phi has a wrong value!");
-		}
+	public static int genHashCode(double phi, double theta, double radius) {
+		return Objects.hash(phi, theta, radius);
 	}
 
-	private void assertTheta(double angle) throws IllegalArgumentException {
-		if (angle < 0.0 && angle > Math.PI) {
-			throw new IllegalArgumentException("Theta has a wrong value!");
-		}
+	public static int count() {
+		return coordinates.size();
+	}
+
+	public static void clear() {
+		coordinates.clear();
 	}
 
 }

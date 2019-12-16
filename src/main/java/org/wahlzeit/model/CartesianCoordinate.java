@@ -1,5 +1,8 @@
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+import java.util.Objects;
+
 /**
  * A cartesian coordinate represents a 3-dimensional point in space, inherits from Coordinate
  */
@@ -7,20 +10,22 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	private final double x, y, z;
 
-	static double Epsilon = 1E-5;
-
-	public CartesianCoordinate() {
-		this.x = 0.0;
-		this.y = 0.0;
-		this.z = 0.0;
-		this.assertClassInvariants();
-	}
-
-	public CartesianCoordinate(double x, double y, double z) {
+	private CartesianCoordinate(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.assertClassInvariants();
+	}
+
+	@Override
+	protected void assertClassInvariants() {
+		try {
+			this.assertObjectNotNull(this.x);
+			this.assertObjectNotNull(this.y);
+			this.assertObjectNotNull(this.z);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Failed class invariant!");
+		}
 	}
 
 	@Override
@@ -38,7 +43,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		double phi = Math.asin(this.getY() / Math.sqrt( Math.pow(this.getX(), 2.0) + Math.pow(this.getY(), 2.0) ) );
 
 		this.assertClassInvariants();
-		return new SphericCoordinate(phi, theta, radius);
+		return SphericCoordinate.get(phi, theta, radius);
 	}
 
 	@Override
@@ -89,14 +94,37 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public void assertClassInvariants() {
-		try {
-			this.assertObjectNotNull(this.x);
-			this.assertObjectNotNull(this.y);
-			this.assertObjectNotNull(this.z);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Failed class invariant!");
+	public int hashCode() {
+		return CartesianCoordinate.genHashCode(this.x, this.y, this.z);
+	}
+
+	static double Epsilon = 1E-5;
+
+	protected static HashMap<String, CartesianCoordinate> coordinates = new HashMap<String, CartesianCoordinate>();
+
+	public static CartesianCoordinate get(double x, double y, double z) {
+		String key = Integer.toString(SphericCoordinate.genHashCode(x, y, z));
+		CartesianCoordinate coordinate = coordinates.get(key);
+
+		if (coordinate != null) {
+			return coordinate;
+		} else {
+			CartesianCoordinate newCoordinate = new CartesianCoordinate(x, y, z);
+			coordinates.put(Integer.toString(newCoordinate.hashCode()), newCoordinate);
+			return newCoordinate;
 		}
+	}
+
+	public static int genHashCode(double x, double y, double z) {
+		return Objects.hash(x, y, z);
+	}
+
+	public static int count() {
+		return coordinates.size();
+	}
+
+	public static void clear() {
+		coordinates.clear();
 	}
 
 }
