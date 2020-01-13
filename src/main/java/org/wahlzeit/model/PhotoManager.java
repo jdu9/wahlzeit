@@ -27,6 +27,7 @@ import org.wahlzeit.model.persistence.ImageStorage;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.ObjectManager;
 import org.wahlzeit.services.Persistent;
+import org.wahlzeit.annotations.DesignPattern;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -43,6 +44,10 @@ import java.util.logging.Logger;
 /**
  * A photo manager provides access to and manages photos.
  */
+@DesignPattern (
+	name = "Singleton",
+	participants = { "Singleton" }
+)
 public class PhotoManager extends ObjectManager {
 
 	/**

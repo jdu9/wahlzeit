@@ -1,11 +1,16 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.annotations.DesignPattern;
 import java.util.HashMap;
 import java.util.Objects;
 
 /**
  * A cartesian coordinate represents a 3-dimensional point in space, inherits from Coordinate
  */
+@DesignPattern (
+	name = "Value Object",
+	participants = { "Value Object" }
+)
 public class CartesianCoordinate extends AbstractCoordinate {
 
 	private final double x, y, z;

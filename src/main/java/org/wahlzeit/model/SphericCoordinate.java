@@ -1,11 +1,16 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.annotations.DesignPattern;
 import java.util.HashMap;
 import java.util.Objects;
 
 /**
  * A spheric coordinate represents a 3-dimensional point in space, inherits from Coordinate
  */
+@DesignPattern (
+	name = "Value Object",
+	participants = { "Value Object" }
+)
 public class SphericCoordinate extends AbstractCoordinate {
 
 	private final double phi, theta, radius;
